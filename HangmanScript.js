@@ -49,10 +49,12 @@ const init = function (state) {
       btn.classList.remove('disabled');
       hintDiv.classList.add('hidden');
       notif.classList.add('hidden');
+      lives = 6;
+      changehangman();
     });
   }
   select_word = getRandomWord(word_list);
-  lives = 5;
+  lives = 6;
 
   // capturing letters div
   letters = document.querySelectorAll('.alpha');
@@ -122,9 +124,15 @@ const letterPress = function () {
     if (checkWord()) showNotif('won');
   } else {
     decreaseLife();
+    changehangman();
   }
   this.classList.add('disabled');
 };
+
+//change hangman display
+const changehangman = function() {
+  document.getElementById('hangmandisplay').src ='./Images/'+ lives + '.jpeg';
+}
 
 // listening to letter buttons presses
 letters.forEach(btn => {
