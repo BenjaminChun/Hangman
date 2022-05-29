@@ -84,6 +84,7 @@ const init = function (state) {
         lives = 2;
       }
       changehangman();
+      timer; // creating new instance of the timer class
     });
   }
   else if (state === 'easy') {

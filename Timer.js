@@ -48,6 +48,7 @@ export default class Timer{
             if(difficulty.textContent === "Hard"){
                 this.remainingSeconds = 30;
             }
+            this.start();
         });
         playAgainButtonW.addEventListener('click', () => {
             if(difficulty.textContent === "Easy"){
@@ -59,6 +60,7 @@ export default class Timer{
             if(difficulty.textContent === "Hard"){
                 this.remainingSeconds = 30;
             }
+            this.start();
         });
         this.start();
     }
