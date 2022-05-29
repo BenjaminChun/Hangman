@@ -1,13 +1,29 @@
+html {
+  height: 100%;
+}
 body {
-    /* background-image: linear-gradient(to right, #f46b45, #eea849); */
-    background-image: linear-gradient(to right, #606c88, #3f4c6b);
-    color: white;
-    text-align: center;
-  }
-  .wrapper {
-    width: fit-content;
-    margin: auto;
-  }
+  max-height: 100vh;
+  background-image: linear-gradient(to right, #606c88, #3f4c6b);
+  text-align: center;
+}
+.wrapper{
+  justify-content: center;
+  color: white;
+}
+.header{
+  text-align: center;
+}
+.img-grid{
+  display: grid;
+  height: 50vh;
+  justify-content: center;
+}
+.image{
+  height:50vh;
+}
+.letter-div, .word-div{
+  height: 20%;
+}
   .hint-div {
     display: flex;
     color: chartreuse;
