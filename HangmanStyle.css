@@ -108,6 +108,7 @@ body {
   .timer{
     font-family: sans-serif;
     font-size: 30px;
+    margin: 0 auto;
     display: inline-block;
     padding: 24px 32px;
     border-radius: 30px;

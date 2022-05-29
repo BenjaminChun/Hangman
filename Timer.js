@@ -13,18 +13,22 @@ export default class Timer{
         this.remainingSeconds = 120;
         const difficulty = document.querySelector('.Difficulty');
         const easyButton = document.querySelector('.easy-btn');
+        //listening to the easy button to set the timer
         easyButton.addEventListener('click', () => {
             this.remainingSeconds = 120;
         });
-        const normalButton = document.querySelector('.normal-btn');   
+        const normalButton = document.querySelector('.normal-btn');
+        //listening to the normal button to set the timer
         normalButton.addEventListener('click', () => {                
             this.remainingSeconds = 60;                             
         });                                                         
-        const hardButton = document.querySelector('.hard-btn');  
+        const hardButton = document.querySelector('.hard-btn');
+        //listening to the hard mode button to set the timer
         hardButton.addEventListener('click', () => {                
             this.remainingSeconds = 30;                             
         });                                                         
         const resetButton = document.querySelector('.reset-btn');
+        //listening to the reset button to set the timer
         resetButton.addEventListener('click', () => {           
             if(difficulty.textContent === "Easy"){
             this.remainingSeconds = 120;
@@ -34,10 +38,11 @@ export default class Timer{
             }  
              if(difficulty.textContent === "Hard"){
              this.remainingSeconds = 30;          
-             }                                     
+             }
         });
         const playAgainButtonL = document.querySelector('.notifL-btn');
         const playAgainButtonW = document.querySelector('.notifW-btn');
+        //listening to the play again lose button to set the timer
         playAgainButtonL.addEventListener('click', () => {
             if(difficulty.textContent === "Easy"){
                 this.remainingSeconds = 120;
@@ -48,8 +53,11 @@ export default class Timer{
             if(difficulty.textContent === "Hard"){
                 this.remainingSeconds = 30;
             }
+            clearInterval(this.interval);
+            this.interval=null;
             this.start();
         });
+        //listening to the play again win button to set the timer
         playAgainButtonW.addEventListener('click', () => {
             if(difficulty.textContent === "Easy"){
                 this.remainingSeconds = 120;
@@ -60,8 +68,11 @@ export default class Timer{
             if(difficulty.textContent === "Hard"){
                 this.remainingSeconds = 30;
             }
+            clearInterval(this.interval);
+            this.interval=null;
             this.start();
         });
+        
         this.start();
     }
     

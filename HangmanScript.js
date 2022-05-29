@@ -61,6 +61,7 @@ const init = function (state) {
       const html = `<button class="alpha">${i.toUpperCase()}</button>`;
       letterDiv.insertAdjacentHTML('beforeend', html);
       select_word = getRandomWord(word_list);
+      difficulty.textContent = "Easy";
       lives = 6;
     }
   } 
@@ -248,12 +249,12 @@ hardButton.addEventListener('click', function () {
   init('hard');
 });
 
-// listening to play again button
+// listening to play again lose button
 playAgainL.addEventListener('click', function () {
   init('reset');
 });
 
-// listening to play again button
+// listening to play again win button
 playAgainW.addEventListener('click', function () {
   init('reset');
 });
