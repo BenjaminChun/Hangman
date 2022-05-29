@@ -1,8 +1,13 @@
 'use strict';
+import Timer from "./Timer.js";
 
 const letterDiv = document.querySelector('.letter-div');
 const hintButton = document.querySelector('.hint-btn');
 const resetButton = document.querySelector('.reset-btn');
+const newriddleButton = document.querySelector('.newriddle-btn');
+const easyButton = document.querySelector('.easy-btn');
+const normalButton = document.querySelector('.normal-btn');
+const hardButton = document.querySelector('.hard-btn');
 const hintDiv = document.querySelector('.hint-div');
 const hintText = document.querySelector('.hint-txt');
 const liveSpan = document.querySelector('.lives');
@@ -11,18 +16,27 @@ const notif = document.querySelector('.notif');
 const notifContent = document.querySelector('.notif-content');
 const notifSpan = document.querySelector('.notif-span');
 const playAgain = document.querySelector('.notif-btn');
+const difficulty = document.querySelector('.Difficulty');
+const Timer123 = document.querySelector('.timer');
+
+const minutes = Math.floor(60);
+const seconds = 60;
 
 // keeping letters using javascript
-// so untill we put html content into letter-div,
+// so until we put html content into letter-div,
 // we cant capture letters
 let letters;
-
 let lives;
 
 const words = new Map([
   ['blood bank', 'What is a bank but has no money?'],
   ['deck of cards', 'What has 13 hearts but no other organs?'],
   ['computer', 'What freezes when it overheats?'],
+  ['short', 'What 5 letter work becomes shorter when you add two letters to it?'],
+  ['swims', 'What five-letter word can be read the same upside down or right side up?'],
+  ['coin', 'What has a head and a tail, but no body or legs?'],
+  ['lightning', ' I touch the earth and I touch the sky, but if I touch you, you’ll likely die. What am I?'],
+  ['coin', 'What has a head and a tail, but no body or legs'],
 ]);
 
 // making a list of only keys from words
@@ -38,23 +52,79 @@ let select_word;
 
 const init = function (state) {
   wordDiv.innerHTML = '';
+  
   if (state === 'start') {
     // putting all letters into html
     for (const i of 'abcdefghijklmnopqrstuvwxyz') {
       const html = `<button class="alpha">${i.toUpperCase()}</button>`;
       letterDiv.insertAdjacentHTML('beforeend', html);
+      select_word = getRandomWord(word_list);
+      lives = 6;
     }
-  } else if (state === 'reset') {
+  } 
+  else if (state === 'reset') {
     letters.forEach(btn => {
       btn.classList.remove('disabled');
       hintDiv.classList.add('hidden');
       notif.classList.add('hidden');
+      select_word = getRandomWord(word_list);
       lives = 6;
+      difficulty.textContent = "Easy";
       changehangman();
     });
   }
-  select_word = getRandomWord(word_list);
-  lives = 6;
+  else if (state === 'newriddle') {
+    letters.forEach(btn => {
+      btn.classList.remove('disabled');
+      hintDiv.classList.add('hidden');
+      notif.classList.add('hidden');
+      select_word = getRandomWord(word_list);
+      lives = 6;
+      difficulty.textContent = "Easy";
+      changehangman();
+    });
+  }
+  else if (state === 'easy') {
+    letters.forEach(btn => {
+      btn.classList.remove('disabled');
+      hintDiv.classList.add('hidden');
+      notif.classList.add('hidden');
+      select_word = getRandomWord(word_list);
+      lives = 6;
+      //start with picture 6 (original picture)
+      liveSpan.textContent = lives;
+      difficulty.textContent = "Easy";
+      changehangman();
+      //new Timer().el.minutes.textContent = minutes.toString().padStart(2, "0");
+      //new Timer().el.seconds.textContent = seconds.toString().padStart(2, "0");
+    });
+  }
+  else if (state === 'normal') {
+    letters.forEach(btn => {
+      btn.classList.remove('disabled');
+      hintDiv.classList.add('hidden');
+      notif.classList.add('hidden');
+      select_word = getRandomWord(word_list);
+      lives = 4;
+      //start with picture 4
+      liveSpan.textContent = lives;
+      difficulty.textContent = "Normal";
+      changehangman();
+    });
+  }
+  else if (state === 'hard') {
+    letters.forEach(btn => {
+      btn.classList.remove('disabled');
+      hintDiv.classList.add('hidden');
+      notif.classList.add('hidden');
+      select_word = getRandomWord(word_list);
+      lives = 2;
+      //start with picture 2
+      liveSpan.textContent = lives; 
+      difficulty.textContent = "Hard";
+      changehangman();
+    });
+  }
 
   // capturing letters div
   letters = document.querySelectorAll('.alpha');
@@ -112,6 +182,11 @@ const checkWord = function () {
   return val;
 };
 
+//change hangman display
+const changehangman = function() {
+  document.getElementById('hangmandisplay').src ='./Hangman Images/'+ lives + '.jpeg';
+}
+
 // letters event listener function
 const letterPress = function () {
   const letter = this.textContent.toLowerCase();
@@ -129,11 +204,6 @@ const letterPress = function () {
   this.classList.add('disabled');
 };
 
-//change hangman display
-const changehangman = function() {
-  document.getElementById('hangmandisplay').src ='./Images/'+ lives + '.jpeg';
-}
-
 // listening to letter buttons presses
 letters.forEach(btn => {
   btn.addEventListener('click', letterPress);
@@ -148,6 +218,26 @@ hintButton.addEventListener('click', function () {
 // listening to reset btn
 resetButton.addEventListener('click', function () {
   init('reset');
+});
+
+// listening to newriddle btn
+newriddleButton.addEventListener('click', function () {
+  init('newriddle');
+});
+
+// listening to easy btn
+easyButton.addEventListener('click', function () {
+  init('easy');
+});
+
+// listening to normal btn
+normalButton.addEventListener('click', function () {
+  init('normal');
+});
+
+// listening to hard btn
+hardButton.addEventListener('click', function () {
+  init('hard');
 });
 
 // listening to play again button

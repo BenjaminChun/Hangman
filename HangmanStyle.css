@@ -30,10 +30,31 @@ body {
   }
   .hint-btn,
   .reset-btn,
+  .newriddle-btn,
+  .easy-btn,
+  .normal-btn,
+  .hard-btn,
   .notif-btn {
     cursor: pointer;
   }
   .reset-btn {
+    font-family: sans-serif;
+    margin-left: auto;
+  }
+  .newriddle-btn {
+    font-family: sans-serif;
+    margin-left: auto;
+  }
+  .easy-btn {
+    font-family: sans-serif;
+    margin-left: auto;
+  }
+  .normal-btn {
+    font-family: sans-serif;
+    margin-left: auto;
+  }
+  .hard-btn {
+    font-family: sans-serif;
     margin-left: auto;
   }
   .alpha {
@@ -77,4 +98,13 @@ body {
   }
   .hidden {
     display: none;
+  }
+  .timer{
+    font-family: sans-serif;
+    font-size: 30px;
+    display: inline-block;
+    padding: 24px 32px;
+    border-radius: 30px;
+    background: cornflowerblue;
+    cursor: pointer;
   }
