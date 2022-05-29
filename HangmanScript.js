@@ -4,7 +4,6 @@ import Timer from "./Timer.js";
 const letterDiv = document.querySelector('.letter-div');
 const hintButton = document.querySelector('.hint-btn');
 const resetButton = document.querySelector('.reset-btn');
-const newriddleButton = document.querySelector('.newriddle-btn');
 const easyButton = document.querySelector('.easy-btn');
 const normalButton = document.querySelector('.normal-btn');
 const hardButton = document.querySelector('.hard-btn');
@@ -12,15 +11,19 @@ const hintDiv = document.querySelector('.hint-div');
 const hintText = document.querySelector('.hint-txt');
 const liveSpan = document.querySelector('.lives');
 const wordDiv = document.querySelector('.word-div');
-const notif = document.querySelector('.notif');
-const notifContent = document.querySelector('.notif-content');
-const notifSpan = document.querySelector('.notif-span');
-const playAgain = document.querySelector('.notif-btn');
+const notifL = document.querySelector('.notifL');
+const notifContentL = document.querySelector('.notifL-content');
+const notifSpanL = document.querySelector('.notifL-span');
+const playAgainL = document.querySelector('.notifL-btn');
+const notifContentW = document.querySelector('.notifW-content');
+const notifW = document.querySelector('.notifW');
+const notifSpanW = document.querySelector('.notifW-span');
+const playAgainW = document.querySelector('.notifW-btn');
 const difficulty = document.querySelector('.Difficulty');
-const Timer123 = document.querySelector('.timer');
+const timer = new Timer(
+    document.querySelector(".timer"),
+)
 
-const minutes = Math.floor(60);
-const seconds = 60;
 
 // keeping letters using javascript
 // so until we put html content into letter-div,
@@ -29,8 +32,6 @@ let letters;
 let lives;
 
 const words = new Map([
-  ['blood bank', 'What is a bank but has no money?'],
-  ['deck of cards', 'What has 13 hearts but no other organs?'],
   ['computer', 'What freezes when it overheats?'],
   ['short', 'What 5 letter work becomes shorter when you add two letters to it?'],
   ['swims', 'What five-letter word can be read the same upside down or right side up?'],
@@ -49,6 +50,7 @@ const getRandomWord = function (list) {
 
 // random word will be selected upon every reset and init
 let select_word;
+export {select_word};
 
 const init = function (state) {
   wordDiv.innerHTML = '';
@@ -66,21 +68,21 @@ const init = function (state) {
     letters.forEach(btn => {
       btn.classList.remove('disabled');
       hintDiv.classList.add('hidden');
-      notif.classList.add('hidden');
+      notifL.classList.add('hidden');
+      notifW.classList.add('hidden');
       select_word = getRandomWord(word_list);
-      lives = 6;
-      difficulty.textContent = "Easy";
-      changehangman();
-    });
-  }
-  else if (state === 'newriddle') {
-    letters.forEach(btn => {
-      btn.classList.remove('disabled');
-      hintDiv.classList.add('hidden');
-      notif.classList.add('hidden');
-      select_word = getRandomWord(word_list);
-      lives = 6;
-      difficulty.textContent = "Easy";
+      if(difficulty.textContent === "Easy")
+      {
+        lives = 6;
+      }
+      if(difficulty.textContent === "Normal")
+      {
+        lives = 4;
+      }
+      if(difficulty.textContent === "Hard")
+      {
+        lives = 2;
+      }
       changehangman();
     });
   }
@@ -88,41 +90,45 @@ const init = function (state) {
     letters.forEach(btn => {
       btn.classList.remove('disabled');
       hintDiv.classList.add('hidden');
-      notif.classList.add('hidden');
+      notifL.classList.add('hidden');
+      notifW.classList.add('hidden');
       select_word = getRandomWord(word_list);
       lives = 6;
       //start with picture 6 (original picture)
       liveSpan.textContent = lives;
       difficulty.textContent = "Easy";
       changehangman();
-      //new Timer().el.minutes.textContent = minutes.toString().padStart(2, "0");
-      //new Timer().el.seconds.textContent = seconds.toString().padStart(2, "0");
+      timer;
     });
   }
   else if (state === 'normal') {
     letters.forEach(btn => {
       btn.classList.remove('disabled');
       hintDiv.classList.add('hidden');
-      notif.classList.add('hidden');
+      notifL.classList.add('hidden');
+      notifW.classList.add('hidden');
       select_word = getRandomWord(word_list);
       lives = 4;
       //start with picture 4
       liveSpan.textContent = lives;
       difficulty.textContent = "Normal";
       changehangman();
+      timer;
     });
   }
   else if (state === 'hard') {
     letters.forEach(btn => {
       btn.classList.remove('disabled');
       hintDiv.classList.add('hidden');
-      notif.classList.add('hidden');
+      notifL.classList.add('hidden');
+      notifW.classList.add('hidden');
       select_word = getRandomWord(word_list);
       lives = 2;
       //start with picture 2
       liveSpan.textContent = lives; 
       difficulty.textContent = "Hard";
       changehangman();
+      timer;
     });
   }
 
@@ -139,12 +145,18 @@ const init = function (state) {
 // initializing the page
 init('start');
 
-// show notification
-const showNotif = function (msg) {
-  notif.classList.remove('hidden');
-  notifSpan.textContent = select_word;
-  notifContent.textContent = `You ${msg}`;
-  // lives = 3;
+// show lose notification
+const showNotifL = function (msg) {
+  notifL.classList.remove('hidden');
+  notifSpanL.textContent = select_word;
+  notifContentL.textContent = `You ${msg}`;
+};
+
+// show win notification
+const showNotifW = function (msg) {
+  notifW.classList.remove('hidden');
+  notifSpanW.textContent = select_word;
+  notifContentW.textContent = `You ${msg}`;
 };
 
 // decrease life
@@ -153,7 +165,7 @@ const decreaseLife = function () {
   //   console.log(lives);
   liveSpan.textContent = lives;
   if (lives === 0) {
-    showNotif('lost');
+    showNotifL('lost');
   }
 };
 
@@ -184,7 +196,7 @@ const checkWord = function () {
 
 //change hangman display
 const changehangman = function() {
-  document.getElementById('hangmandisplay').src ='./Hangman Images/'+ lives + '.jpeg';
+  document.getElementById('hangmandisplay').src ='./Hangman Images/'+ lives + '.jpg';
 }
 
 // letters event listener function
@@ -196,7 +208,7 @@ const letterPress = function () {
     indexes_list.forEach((val, i) => {
       wordDiv.children[val].textContent = this.textContent;
     });
-    if (checkWord()) showNotif('won');
+    if (checkWord()) showNotifW('won');
   } else {
     decreaseLife();
     changehangman();
@@ -220,11 +232,6 @@ resetButton.addEventListener('click', function () {
   init('reset');
 });
 
-// listening to newriddle btn
-newriddleButton.addEventListener('click', function () {
-  init('newriddle');
-});
-
 // listening to easy btn
 easyButton.addEventListener('click', function () {
   init('easy');
@@ -241,6 +248,11 @@ hardButton.addEventListener('click', function () {
 });
 
 // listening to play again button
-playAgain.addEventListener('click', function () {
+playAgainL.addEventListener('click', function () {
+  init('reset');
+});
+
+// listening to play again button
+playAgainW.addEventListener('click', function () {
   init('reset');
 });

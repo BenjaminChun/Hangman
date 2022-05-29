@@ -30,7 +30,6 @@ body {
   }
   .hint-btn,
   .reset-btn,
-  .newriddle-btn,
   .easy-btn,
   .normal-btn,
   .hard-btn,
@@ -38,10 +37,6 @@ body {
     cursor: pointer;
   }
   .reset-btn {
-    font-family: sans-serif;
-    margin-left: auto;
-  }
-  .newriddle-btn {
     font-family: sans-serif;
     margin-left: auto;
   }
@@ -82,7 +77,7 @@ body {
     margin-right: 1.5rem;
   }
   
-  .notif {
+  .notifL {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -93,6 +88,17 @@ body {
     border-radius: 4px;
     box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.2);
   }
+.notifW {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #6cfc84;
+  width: 20rem;
+  padding: 20px 10px;
+  border-radius: 4px;
+  box-shadow: 3px 3px 1px 1px rgba(0, 0, 0, 0.2);
+}
   .blur {
     filter: blur(2px);
   }
